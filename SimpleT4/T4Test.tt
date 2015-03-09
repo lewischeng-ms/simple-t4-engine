@@ -1,0 +1,36 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".html" #>
+<html>
+<head>
+<title>Table generated from Input.txt</title>
+</head>
+<body>
+<table border="1">
+<#
+        using (var reader = new StreamReader(@"C:\Users\licheng\Documents\Visual Studio 2013\Projects\SimpleT4\SimpleT4\Input.txt"))
+        {
+		    while (!reader.EndOfStream)
+            {
+                string line = reader.ReadLine();
+                GenerateTableRow(line);
+            }
+        }
+#>
+</table>
+</body>
+</html>
+<#+
+	private void GenerateTableRow(string line)
+    {
+        int equalPos = line.IndexOf('=');
+        string key = line.Substring(0, equalPos);
+        string value = line.Substring(equalPos + 1);
+#>
+<tr><th><#=key#></th><th><#=value#></th></tr>
+<#+
+    }
+#>
